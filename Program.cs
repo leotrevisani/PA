@@ -1,4 +1,4 @@
-//por Leonardo Ferreira Trevisani de Oliveira :3
+
 using System;
 
 class Program
