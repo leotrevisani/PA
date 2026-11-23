@@ -3,7 +3,7 @@ import math
 import random
 
 
-# Funções para ler números
+# Função para ler números
 def ler_numero(mensagem):
     while True:
         try:
@@ -18,6 +18,28 @@ def ler_inteiro(mensagem):
             return int(input(mensagem))
         except ValueError:
             print("Digite um número inteiro válido!")
+
+
+# Função para repetir ou voltar ao menu
+def executar_com_opcao(programa):
+    while True:
+        programa()
+
+        print("\nO QUE DESEJA FAZER?")
+        print("1. Repetir o programa")
+        print("2. Voltar ao menu principal")
+
+        escolha = ler_inteiro("Digite sua opção: ")
+
+        if escolha == 1:
+            print("\nReiniciando o programa...")
+
+        elif escolha == 2:
+            print("\nVoltando ao menu principal...")
+            break
+
+        else:
+            print("Opção inválida! Digite 1 ou 2.")
 
 
 # 1 - Nome e Sobrenome
@@ -241,28 +263,28 @@ while opcao != 9:
     opcao = ler_inteiro("Digite a opção desejada: ")
 
     if opcao == 1:
-        nome_sobrenome()
+        executar_com_opcao(nome_sobrenome)
 
     elif opcao == 2:
-        calculadora()
+        executar_com_opcao(calculadora)
 
     elif opcao == 3:
-        media()
+        executar_com_opcao(media)
 
     elif opcao == 4:
-        hipotenusa()
+        executar_com_opcao(hipotenusa)
 
     elif opcao == 5:
-        triangulo()
+        executar_com_opcao(triangulo)
 
     elif opcao == 6:
-        equacao_segundo_grau()
+        executar_com_opcao(equacao_segundo_grau)
 
     elif opcao == 7:
-        tabuada()
+        executar_com_opcao(tabuada)
 
     elif opcao == 8:
-        jogo_adivinhacao()
+        executar_com_opcao(jogo_adivinhacao)
 
     elif opcao == 9:
         print("\nSaindo do programa... Até logo!")
