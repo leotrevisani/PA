@@ -1,293 +1,292 @@
-
+#Leozin passou aqui :3 <3
+import os
 import math
 import random
 
+# ---------- Funções auxiliares ----------
 
-# Função para ler números
-def ler_numero(mensagem):
+def limpar_tela():
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+def ler_float(mensagem):
+    """Lê um número decimal, repetindo até o usuário digitar algo válido."""
     while True:
         try:
             return float(input(mensagem).replace(",", "."))
         except ValueError:
-            print("Digite um número válido!")
+            print("Valor inválido! Digite um número.")
 
 
-def ler_inteiro(mensagem):
+def ler_int(mensagem):
+    """Lê um número inteiro, repetindo até o usuário digitar algo válido."""
     while True:
         try:
             return int(input(mensagem))
         except ValueError:
-            print("Digite um número inteiro válido!")
+            print("Valor inválido! Digite um número inteiro.")
 
 
-# Função para repetir ou voltar ao menu
-def executar_com_opcao(programa):
-    while True:
-        programa()
-
-        print("\nO QUE DESEJA FAZER?")
-        print("1. Repetir o programa")
-        print("2. Voltar ao menu principal")
-
-        escolha = ler_inteiro("Digite sua opção: ")
-
-        if escolha == 1:
-            print("\nReiniciando o programa...")
-
-        elif escolha == 2:
-            print("\nVoltando ao menu principal...")
-            break
-
-        else:
-            print("Opção inválida! Digite 1 ou 2.")
+def continuar(numero_programa):
+    """Pergunta se o usuário quer continuar no programa atual."""
+    resp = input(f"\nDeseja continuar no programa {numero_programa}? (S/N): ")
+    return resp.strip().upper() == "S"
 
 
-# 1 - Nome e Sobrenome
+# ---------- 1 - Nome e Sobrenome ----------
+
 def nome_sobrenome():
-    print("\n=== NOME E SOBRENOME ===")
-
-    nome_completo = input("Digite seu nome completo: ").strip()
-    partes = nome_completo.split()
-
-    if len(partes) < 2:
-        print("Digite pelo menos um nome e um sobrenome!")
-    else:
-        nome = partes[0]
-        sobrenome = " ".join(partes[1:])
-
-        print("\nNome com sobrenome invertido:")
-        print(sobrenome, nome)
-
-
-# 2 - Calculadora
-def calculadora():
-    print("\n=== CALCULADORA ===")
-
-    numero1 = ler_numero("Digite o primeiro número: ")
-    numero2 = ler_numero("Digite o segundo número: ")
-
-    op = input("Digite a operação (+, -, *, /, ^): ")
-
-    if op == "+":
-        resultado = numero1 + numero2
-        print("Resultado:", resultado)
-
-    elif op == "-":
-        resultado = numero1 - numero2
-        print("Resultado:", resultado)
-
-    elif op == "*":
-        resultado = numero1 * numero2
-        print("Resultado:", resultado)
-
-    elif op == "/":
-        if numero2 != 0:
-            resultado = numero1 / numero2
-            print("Resultado:", resultado)
-        else:
-            print("Erro! Não é possível dividir por zero.")
-
-    elif op == "^":
-        resultado = numero1 ** numero2
-        print("Resultado:", resultado)
-
-    else:
-        print("Operação inválida!")
-
-
-# 3 - Média
-def media():
-    print("\n=== MÉDIA ===")
-
-    nota1 = ler_numero("Digite a nota 1: ")
-    nota2 = ler_numero("Digite a nota 2: ")
-    nota3 = ler_numero("Digite a nota 3: ")
-    nota4 = ler_numero("Digite a nota 4: ")
-
-    resultado = (nota1 + nota2 + nota3 + nota4) / 4
-
-    print("\nMédia:", resultado)
-
-    if resultado < 5:
-        print("Menção: I - Insuficiente")
-
-    elif resultado < 7:
-        print("Menção: R - Regular")
-
-    elif resultado < 9:
-        print("Menção: B - Bom")
-
-    else:
-        print("Menção: MB - Muito Bom")
-
-
-# 4 - Hipotenusa
-def hipotenusa():
-    print("\n=== HIPOTENUSA ===")
-
-    cateto1 = ler_numero("Digite o valor do primeiro cateto: ")
-    cateto2 = ler_numero("Digite o valor do segundo cateto: ")
-
-    if cateto1 > 0 and cateto2 > 0:
-        resultado = math.sqrt(cateto1 ** 2 + cateto2 ** 2)
-        print("\nA hipotenusa é:", resultado)
-    else:
-        print("Os catetos devem ser maiores que zero!")
-
-
-# 5 - Triângulo
-def triangulo():
-    print("\n=== TRIÂNGULO ===")
-
-    lado1 = ler_numero("Digite o primeiro lado: ")
-    lado2 = ler_numero("Digite o segundo lado: ")
-    lado3 = ler_numero("Digite o terceiro lado: ")
-
-    if (lado1 > 0 and lado2 > 0 and lado3 > 0
-            and lado1 < lado2 + lado3
-            and lado2 < lado1 + lado3
-            and lado3 < lado1 + lado2):
-
-        if lado1 == lado2 and lado2 == lado3:
-            print("\nTriângulo Equilátero")
-
-        elif lado1 == lado2 or lado1 == lado3 or lado2 == lado3:
-            print("\nTriângulo Isósceles")
-
-        else:
-            print("\nTriângulo Escaleno")
-
-    else:
-        print("\nNão é possível formar um triângulo!")
-
-
-# 6 - Equação do 2º Grau
-def equacao_segundo_grau():
-    print("\n=== EQUAÇÃO DO 2º GRAU ===")
-
-    a = ler_numero("Digite o valor de A: ")
-    b = ler_numero("Digite o valor de B: ")
-    c = ler_numero("Digite o valor de C: ")
-
-    if a == 0:
-        print("O valor de A deve ser diferente de zero!")
-        return
-
-    delta = b ** 2 - 4 * a * c
-
-    print("\nDelta:", delta)
-
-    if delta < 0:
-        print("Não existem raízes reais, pois o Delta é negativo.")
-
-    elif delta == 0:
-        x = -b / (2 * a)
-        print("Existe apenas uma raiz real:")
-        print("X =", x)
-
-    else:
-        x1 = (-b + math.sqrt(delta)) / (2 * a)
-        x2 = (-b - math.sqrt(delta)) / (2 * a)
-
-        print("X1 =", x1)
-        print("X2 =", x2)
-
-
-# 7 - Tabuada
-def tabuada():
-    print("\n=== TABUADA ===")
-
-    numero = ler_numero("Digite o número da tabuada: ")
-    inicio = ler_inteiro("Começar de quanto? ")
-    fim = ler_inteiro("Terminar em quanto? ")
-
-    if inicio <= fim:
-        print("\nTabuada de", numero)
-
-        for multiplicador in range(inicio, fim + 1):
-            resultado = numero * multiplicador
-            print(numero, "x", multiplicador, "=", resultado)
-
-    else:
-        print("O início deve ser menor ou igual ao final!")
-
-
-# 8 - Jogo da Adivinhação
-def jogo_adivinhacao():
-    print("\n=== JOGO DA ADIVINHAÇÃO ===")
-
-    numero_secreto = random.randint(0, 100)
-    tentativas = 0
-
-    print("Tente adivinhar o número de 0 a 100!")
-
     while True:
-        palpite = ler_inteiro("Digite seu palpite: ")
+        limpar_tela()
+        print("=== NOME E SOBRENOME ===")
 
-        if palpite < 0 or palpite > 100:
-            print("Digite um número entre 0 e 100!")
-            continue
+        nome_completo = input("Digite seu nome completo: ").strip()
+        partes = nome_completo.split()
 
-        tentativas += 1
-
-        if palpite < numero_secreto:
-            print("O número secreto é MAIOR!")
-
-        elif palpite > numero_secreto:
-            print("O número secreto é MENOR!")
-
+        if len(partes) < 2:
+            print("Digite pelo menos um nome e um sobrenome!")
         else:
-            print("\nPARABÉNS! Você acertou!")
-            print("O número secreto era:", numero_secreto)
-            print("Total de tentativas:", tentativas)
+            nome = partes[0]
+            sobrenome = " ".join(partes[1:])
+
+            print("\nNome com sobrenome invertido:")
+            print(sobrenome, nome)
+
+        if not continuar(1):
             break
 
 
-# MENU PRINCIPAL
-opcao = 0
+# ---------- 2 - Calculadora ----------
 
-while opcao != 9:
+def calculadora():
+    while True:
+        limpar_tela()
+        print("=== PROGRAMA CALCULADORA ===")
 
-    print("\n========== MENU PRINCIPAL ==========")
-    print("1. Nome e Sobrenome")
-    print("2. Calculadora")
-    print("3. Média")
-    print("4. Hipotenusa")
-    print("5. Triângulo")
-    print("6. Equação do 2º Grau")
-    print("7. Tabuada")
-    print("8. Joguinho da Adivinhação")
-    print("9. Sair")
-    print("====================================")
+        numero1 = ler_float("Digite o primeiro número: ")
+        numero2 = ler_float("Digite o segundo número: ")
+        op = input("Digite uma operação (+, -, *, /, ^): ").strip()
 
-    opcao = ler_inteiro("Digite a opção desejada: ")
+        if op == "+":
+            print(f"Resultado: {numero1 + numero2}")
+        elif op == "-":
+            print(f"Resultado: {numero1 - numero2}")
+        elif op == "*":
+            print(f"Resultado: {numero1 * numero2}")
+        elif op == "/":
+            if numero2 != 0:
+                print(f"Resultado: {numero1 / numero2}")
+            else:
+                print("Erro: divisão por zero é impossível!")
+        elif op == "^":
+            try:
+                print(f"Resultado: {math.pow(numero1, numero2)}")
+            except (ValueError, OverflowError):
+                print("Erro: não foi possível calcular essa potência!")
+        else:
+            print("Operação inválida!")
 
-    if opcao == 1:
-        executar_com_opcao(nome_sobrenome)
+        if not continuar(2):
+            break
 
-    elif opcao == 2:
-        executar_com_opcao(calculadora)
 
-    elif opcao == 3:
-        executar_com_opcao(media)
+# ---------- 3 - Média ----------
 
-    elif opcao == 4:
-        executar_com_opcao(hipotenusa)
+def media():
+    while True:
+        limpar_tela()
+        print("=== PROGRAMA MÉDIA ===")
 
-    elif opcao == 5:
-        executar_com_opcao(triangulo)
+        notas = []
+        for i in range(1, 5):
+            notas.append(ler_float(f"Digite a nota {i}: "))
 
-    elif opcao == 6:
-        executar_com_opcao(equacao_segundo_grau)
+        media_final = sum(notas) / 4
+        print(f"\nA média é: {media_final:.2f}")
 
-    elif opcao == 7:
-        executar_com_opcao(tabuada)
+        if media_final < 5:
+            print("Menção: I - Insuficiente (reprovado)")
+        elif media_final < 7:
+            print("Menção: R - Regular (aprovado)")
+        elif media_final < 9:
+            print("Menção: B - Bom (aprovado)")
+        else:
+            print("Menção: MB - Muito Bom (aprovado com louvor!)")
 
-    elif opcao == 8:
-        executar_com_opcao(jogo_adivinhacao)
+        if not continuar(3):
+            break
 
-    elif opcao == 9:
-        print("\nSaindo do programa... Até logo!")
 
-    else:
-        print("\nOpção inválida! Tente novamente.")
+# ---------- 4 - Hipotenusa ----------
+
+def hipotenusa():
+    while True:
+        limpar_tela()
+        print("=== PROGRAMA HIPOTENUSA ===")
+
+        cat1 = ler_float("Digite o valor do Cateto 1: ")
+        cat2 = ler_float("Digite o valor do Cateto 2: ")
+
+        hip = math.sqrt(cat1 ** 2 + cat2 ** 2)
+        print(f"\nA hipotenusa é: {hip:.2f}")
+
+        if not continuar(4):
+            break
+
+
+# ---------- 5 - Triângulo ----------
+
+def triangulo():
+    while True:
+        limpar_tela()
+        print("=== PROGRAMA TRIÂNGULO ===")
+
+        lado1 = ler_float("Digite o primeiro lado: ")
+        lado2 = ler_float("Digite o segundo lado: ")
+        lado3 = ler_float("Digite o terceiro lado: ")
+
+        if lado1 < lado2 + lado3 and lado2 < lado1 + lado3 and lado3 < lado1 + lado2:
+            if lado1 == lado2 == lado3:
+                print("\nTriângulo Equilátero")
+            elif lado1 == lado2 or lado1 == lado3 or lado2 == lado3:
+                print("\nTriângulo Isósceles")
+            else:
+                print("\nTriângulo Escaleno")
+        else:
+            print("\nNão é triângulo!!!")
+
+        if not continuar(5):
+            break
+
+
+# ---------- 6 - Equação do 2º Grau ----------
+
+def equacao_segundo_grau():
+    while True:
+        limpar_tela()
+        print("=== PROGRAMA EQUAÇÃO 2º GRAU ===")
+
+        a = ler_float("Digite o valor de A: ")
+        b = ler_float("Digite o valor de B: ")
+        c = ler_float("Digite o valor de C: ")
+
+        if a == 0:
+            print("\nA não pode ser zero (não seria equação do 2º grau)!")
+        else:
+            delta = b ** 2 - 4 * a * c
+            print(f"\nDelta: {delta}")
+
+            if delta < 0:
+                print("Resultado não é real, pois o Delta é negativo!")
+            else:
+                x1 = (-b + math.sqrt(delta)) / (2 * a)
+                x2 = (-b - math.sqrt(delta)) / (2 * a)
+
+                print(f"X1 é igual a: {x1:.2f}")
+                print(f"X2 é igual a: {x2:.2f}")
+
+        if not continuar(6):
+            break
+
+
+# ---------- 7 - Tabuada ----------
+
+def tabuada():
+    while True:
+        limpar_tela()
+        print("=== PROGRAMA TABUADA ===")
+
+        numero = ler_float("Digite o número que deseja ver a tabuada: ")
+        inicio = ler_int("Digite a partir de qual multiplicador: ")
+        fim = ler_int("Digite até qual multiplicador: ")
+
+        print(f"\nTabuada de {numero:g}:")
+        for mult in range(inicio, fim + 1):
+            print(f"{numero:g} x {mult} = {numero * mult:g}")
+
+        if not continuar(7):
+            break
+
+
+# ---------- 8 - Joguinho da Adivinhação ----------
+
+def jogo_adivinhacao():
+    while True:
+        limpar_tela()
+        numero_secreto = random.randint(0, 249)
+        tentativas = 0
+        palpite = None
+
+        print("=======================================")
+        print("   BEM-VINDO AO JOGO DE ADIVINHAÇÃO!   ")
+        print("=======================================")
+        print("Tente adivinhar o número de 0 a 249.\n")
+
+        while palpite != numero_secreto:
+            palpite = ler_int("Digite o seu palpite: ")
+            tentativas += 1
+
+            if palpite < numero_secreto:
+                print("O número secreto é MAIOR!\n")
+            elif palpite > numero_secreto:
+                print("O número secreto é MENOR!\n")
+
+        print("---------------------------------------")
+        print(f"PARABÉNS! Você acertou o número {numero_secreto}")
+        print(f"Total de tentativas: {tentativas}")
+        print("---------------------------------------")
+
+        if not continuar(8):
+            break
+
+
+# ---------- Programa principal ----------
+
+def main():
+    opcao = 0
+
+    while opcao != 9:
+        limpar_tela()
+        print("=== MENU PRINCIPAL ===")
+        print("1) Nome e Sobrenome")
+        print("2) Calculadora")
+        print("3) Média")
+        print("4) Hipotenusa")
+        print("5) Triângulo")
+        print("6) Equação do 2º Grau")
+        print("7) Tabuada")
+        print("8) Joguinho da Adivinhação")
+        print("9) Sair")
+        print("======================")
+
+        try:
+            opcao = int(input("\nDigite a opção desejada: "))
+        except ValueError:
+            opcao = 0
+
+        limpar_tela()
+
+        if opcao == 1:
+            nome_sobrenome()
+        elif opcao == 2:
+            calculadora()
+        elif opcao == 3:
+            media()
+        elif opcao == 4:
+            hipotenusa()
+        elif opcao == 5:
+            triangulo()
+        elif opcao == 6:
+            equacao_segundo_grau()
+        elif opcao == 7:
+            tabuada()
+        elif opcao == 8:
+            jogo_adivinhacao()
+        elif opcao == 9:
+            print("Saindo do programa... Até logo!")
+        else:
+            input("Opção inválida! Aperte Enter para voltar ao menu: ")
+
+
+if __name__ == "__main__":
+    main()
